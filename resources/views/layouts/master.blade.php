@@ -54,7 +54,7 @@
         <div class="container">
             <div class="navbar-text pull-left">
                 <p>Drupal is a <a href="http://drupal.com/trademark" target="_blank">registered trademark</a> of <a href="http://buytaert.net/" target="_blank">Dries Buytaert</a>.</p>
-                <p>This application is licensed under <a href="https://github.com/hussainweb/drupal-stats/blob/master/LICENSE.md">GPL-2</a>. It is built with open source components <a href="https://github.com/hussainweb/drupal-stats#license">licensed under GPL, MIT, BSD, and other permissive licenses</a>.</p>
+                <p>This application is licensed under <a href="https://github.com/hussainweb/d8-module-status/blob/master/LICENSE.md">GPL-2</a>. It is built with open source components <a href="https://github.com/hussainweb/d8-module-status#license">licensed under GPL, MIT, BSD, and other permissive licenses</a>.</p>
             </div>
             <div class="navbar-text pull-right">
                 <a href="https://twitter.com/hussainweb"><i class="fa fa-twitter-square fa-2x"></i></a>

@@ -12,5 +12,5 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome', ['title' => 'Can I upgrade to Drupal 8?']);
 });

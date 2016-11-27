@@ -1,5 +1,7 @@
 
 // Fonts
+@import url(https://fonts.googleapis.com/css?family=Lato:400,100);
+@import url(https://fonts.googleapis.com/css?family=Maven+Pro:400,700);
 @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
 
 // Variables
@@ -7,3 +9,46 @@
 
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 90px;
+}
+
+h1, h2, h3, h4, h5, h6, .title {
+  font-family: 'Maven Pro', sans-serif;
+  font-weight: 700;
+}
+
+.footer {
+  position: absolute;
+  margin-bottom: 0;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  min-height: 90px;
+
+  .navbar-text a {
+    color: white;
+  }
+}
+
+.navbar-brand {
+  font-family: 'Maven Pro', sans-serif;
+  font-weight: 400;
+}
+
+.title {
+  font-weight: 100;
+  font-family: 'Lato';
+  font-size: 96px;
+}
+
+.row {
+  margin-bottom: 20px;
+}

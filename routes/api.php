@@ -13,4 +13,4 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::post('/module_status', '\App\ModuleStatus\Controllers\ModuleStatusController@getStatus');
+Route::post('/module_status', 'ModuleStatusController@getStatus');

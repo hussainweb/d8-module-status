@@ -11,4 +11,4 @@
 |
 */
 
-Route::get('/', '\App\ModuleStatus\Controllers\HomeController@home');
+Route::get('/', 'HomeController@home');

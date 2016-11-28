@@ -11,6 +11,4 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome', ['title' => 'Can I upgrade to Drupal 8?']);
-});
+Route::get('/', '\App\ModuleStatus\Controllers\HomeController@home');

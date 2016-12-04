@@ -3,7 +3,9 @@
 namespace App\ModuleStatus\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\ModuleStatus\DruStatsApi\ClientDbDecorator;
 use App\ModuleStatus\Models\Services\ModuleListParser;
+use App\ModuleStatus\Models\Services\ModuleStatusService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -30,6 +32,7 @@ class ModuleStatusController extends Controller
             return new Response(['error' => 'Cannot parse the module list.'], 400);
         }
 
-        return $modules;
+        $module_status = new ModuleStatusService(new ClientDbDecorator());
+        return $module_status->getProjectData($modules);
     }
 }

@@ -15,12 +15,13 @@ class CreateProjectsTable extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->string('project_name', 64);
-            $table->text('drupalorg_data');
+            $table->text('drupalorg_data')->nullable();
             $table->text('upgrade_comments')->nullable();
             $table->enum('migration_status', ['full', 'partial', 'none', 'fail', 'unknown'])->default('unknown');
             $table->string('migration_issue_url')->default('');
             $table->text('migration_comments')->nullable();
             $table->timestamp('last_retrieved_on')->index();
+            $table->integer('http_status_code')->default(0);
             $table->timestamps();
             $table->primary('project_name');
         });

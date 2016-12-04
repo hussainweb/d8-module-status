@@ -13,4 +13,6 @@ class ProjectModule extends Model
      * @var bool
      */
     public $incrementing = false;
+
+    public $primaryKey = 'name';
 }

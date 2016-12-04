@@ -13,4 +13,6 @@ class Project extends Model
      * @var bool
      */
     public $incrementing = false;
+
+    public $primaryKey = 'project_name';
 }

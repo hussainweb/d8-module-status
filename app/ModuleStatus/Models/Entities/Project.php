@@ -15,4 +15,14 @@ class Project extends Model
     public $incrementing = false;
 
     public $primaryKey = 'project_name';
+
+    public function getDrupalorgDataAttribute($value)
+    {
+        return json_decode($value, true);
+    }
+
+    public function setDrupalorgDataAttribute($value)
+    {
+        $this->attributes['drupalorg_data'] = json_encode($value);
+    }
 }

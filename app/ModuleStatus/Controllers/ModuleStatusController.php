@@ -22,6 +22,7 @@ class ModuleStatusController extends Controller
 
     public function getStatus(Request $request)
     {
+        // First try to parse the list into a list of modules we can work with.
         $module_list = $request->request->get('list');
         $modules = $this->parser->parse($module_list);
 

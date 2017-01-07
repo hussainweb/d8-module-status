@@ -89,6 +89,8 @@ class ModuleStatusService
             'project_type' => '',
             'downloads' => '',
             'release' => [],
+            'release_level' => '',
+            'release_level_version' => '',
         ];
 
         $item['modules'] = $this->getModulesInProject($project->project_name);
@@ -108,15 +110,66 @@ class ModuleStatusService
                 $item['maintenance_status'] = $do_data['maintenanceStatus']['data']['name'];
             }
 
-            $releases = collect($do_data['releases']['data']);
-            $item['release'] = $releases
-                ->filter(function ($item) {
+            if ($item['type'] == 'project_core') {
+                $filter_d8_func = function ($item) {
                     return $item['version']['major'] == 8;
-                })
-                ->sortByDesc('changed')
-                ->values();
+                };
+            }
+            else {
+                $filter_d8_func = function ($item) {
+                    return preg_match("/^8\.x/", $item['version']['full']);
+                };
+            }
+
+            $releases = collect($do_data['releases']['data']);
+            $releasesD8 = $releases
+                ->filter($filter_d8_func)
+                ->sortByDesc('created');
+
+            $releaseLevel = $releasesD8->reduce(function ($carry, $item) {
+                $level = $this->getVersionLevel($item['version']['extra']);
+                $carryLevel = $this->getVersionLevel($carry);
+
+                return ($level > $carryLevel) ? $item['version']['extra'] : $carry;
+            }, 'dev');
+
+            // Handle when version extra is null (which means a stable release).
+            if (!$releaseLevel) {
+                $releaseLevel = 'stable';
+            }
+
+            $item['release'] = $releasesD8->values();
+            // Release level makes sense only if there are releases.
+            $item['release_level_version'] = $releasesD8->count() ? $releaseLevel : '';
+            $item['release_level'] = preg_replace('/\d+/', '', $item['release_level_version']);
         }
 
         return $item;
+    }
+
+    private function getVersionLevel($version_extra)
+    {
+        static $levels = [
+          'dev' => 1,
+          'alpha' => 2,
+          'beta' => 3,
+          'rc' => 4,
+          'stable' => 5,
+        ];
+
+        // Fast return when version extra is null (which means 'stable').
+        if (is_null($version_extra)) {
+            return 5;
+        }
+
+        // Try to match each type of version from our list of levels.
+        foreach ($levels as $prefix => $weight) {
+            if ($version_extra == $prefix || preg_match("/$prefix\d+/", $version_extra)) {
+                return $weight;
+            }
+        }
+
+        // If we can't find anything, assume 'dev'.
+        return 1;
     }
 }

@@ -25,7 +25,8 @@ class ModuleStatusService
             ->map([$this->client, 'getProjectInfo'])
             ->map(function ($project) {
                 return $this->convertProjectOutput($project);
-            });
+            })
+            ->groupBy('release_level');
 
         return $projects;
     }
@@ -89,7 +90,7 @@ class ModuleStatusService
             'project_type' => '',
             'downloads' => '',
             'release' => [],
-            'release_level' => '',
+            'release_level' => 'unknown',
             'release_level_version' => '',
         ];
 
@@ -121,6 +122,7 @@ class ModuleStatusService
                 };
             }
 
+            // Collect releases and determine the highest release level.
             $releases = collect($do_data['releases']['data']);
             $releasesD8 = $releases
                 ->filter($filter_d8_func)
@@ -140,7 +142,7 @@ class ModuleStatusService
 
             $item['release'] = $releasesD8->values();
             // Release level makes sense only if there are releases.
-            $item['release_level_version'] = $releasesD8->count() ? $releaseLevel : '';
+            $item['release_level_version'] = $releasesD8->count() ? $releaseLevel : 'unknown';
             $item['release_level'] = preg_replace('/\d+/', '', $item['release_level_version']);
         }
 
@@ -150,16 +152,17 @@ class ModuleStatusService
     private function getVersionLevel($version_extra)
     {
         static $levels = [
-          'dev' => 1,
-          'alpha' => 2,
-          'beta' => 3,
-          'rc' => 4,
-          'stable' => 5,
+          'unstable' => 1,
+          'dev' => 2,
+          'alpha' => 3,
+          'beta' => 4,
+          'rc' => 5,
+          'stable' => 6,
         ];
 
         // Fast return when version extra is null (which means 'stable').
         if (is_null($version_extra)) {
-            return 5;
+            return 6;
         }
 
         // Try to match each type of version from our list of levels.
@@ -169,7 +172,7 @@ class ModuleStatusService
             }
         }
 
-        // If we can't find anything, assume 'dev'.
+        // If we can't find anything, assume 'unstable'.
         return 1;
     }
 }

@@ -25,10 +25,34 @@ class ModuleStatusService
             ->map([$this->client, 'getProjectInfo'])
             ->map(function ($project) {
                 return $this->convertProjectOutput($project);
-            })
-            ->groupBy('release_level');
+            });
 
-        return $projects;
+        $grouped_projects = $projects->groupBy('release_level');
+
+        $output = [
+            'projects' => $grouped_projects,
+            'projects_count' => $projects->count(),
+            'stable_count' => 0,
+            'others_count' => 0,
+            'unknown_count' => 0,
+            'absent_count' => 0,
+        ];
+
+        if (!empty($grouped_projects['stable'])) {
+            $output['stable_count'] = $grouped_projects['stable']->count();
+        }
+
+        if (!empty($grouped_projects['unknown'])) {
+            $output['unknown_count'] = $grouped_projects['unknown']->count();
+        }
+
+        if (!empty($grouped_projects['absent'])) {
+            $output['absent_count'] = $grouped_projects['absent']->count();
+        }
+
+        $output['others_count'] = $projects->count() - $output['stable_count'] - $output['unknown_count'] - $output['absent_count'];
+
+        return $output;
     }
 
     public function getModuleMappings(Collection $modules)
@@ -142,7 +166,7 @@ class ModuleStatusService
 
             $item['release'] = $releasesD8->values();
             // Release level makes sense only if there are releases.
-            $item['release_level_version'] = $releasesD8->count() ? $releaseLevel : 'unknown';
+            $item['release_level_version'] = $releasesD8->count() ? $releaseLevel : 'absent';
             $item['release_level'] = preg_replace('/\d+/', '', $item['release_level_version']);
         }
 

@@ -15,6 +15,11 @@ require('./bootstrap');
 
 Vue.component('example', require('./components/Example.vue'));
 
+Vue.component('upgradePage', require('./components/UpgradePage.vue'));
+Vue.component('upgradeInputForm', require('./components/UpgradeInputForm.vue'));
+Vue.component('upgradeResult', require('./components/UpgradeResult.vue'));
+Vue.component('projectSection', require('./components/ProjectSection.vue'));
+
 const app = new Vue({
     el: '#app'
 });

@@ -63,6 +63,9 @@
                 <a href="https://in.linkedin.com/in/husainad"><i class="fa fa-linkedin-square fa-2x"></i></a>
                 <a href="https://www.facebook.com/hussainweb"><i class="fa fa-facebook-square fa-2x"></i></a>
             </div>
+            <div class="navbar-text pull-right">
+                Powered by <a href="http://www.drustats.com">Drupal Statistics <img src="{{ asset('images/drustats-logo.png') }}" /></a>
+            </div>
         </div>
     </footer>
 
@@ -73,5 +76,15 @@
 
     @stack('scripts')
 
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-64570324-4', 'auto');
+        ga('send', 'pageview');
+
+    </script>
 </body>
 </html>

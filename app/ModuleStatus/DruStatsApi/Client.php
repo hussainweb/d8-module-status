@@ -8,11 +8,9 @@ use GuzzleHttp\Psr7\Request;
 class Client extends GuzzleClient implements ClientInterface
 {
 
-    const DEFAULT_BASE_URI = 'http://www.drustats.com/api/';
+    const DEFAULT_BASE_URI = 'https://www.drustats.com/api/';
 
     protected $client;
-
-    protected $baseUrl = 'http://www.drustats.com/api/';
 
     public function getProjectInfo(string $project_name)
     {

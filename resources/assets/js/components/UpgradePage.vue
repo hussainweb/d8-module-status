@@ -25,9 +25,6 @@
                 this.projectUpgradeResults = {};
                 alert(errorMsg);
             }
-        },
-        mounted() {
-            console.log('Component ready.')
         }
     }
 </script>

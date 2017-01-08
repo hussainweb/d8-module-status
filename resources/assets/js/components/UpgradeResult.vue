@@ -32,8 +32,7 @@
     export default{
         data() {
             return {
-                projectStatus: []
-            }
+            };
         },
         props: ['results'],
         computed: {

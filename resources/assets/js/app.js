@@ -13,8 +13,6 @@ require('./bootstrap');
  * the application, or feel free to tweak this setup for your needs.
  */
 
-Vue.component('example', require('./components/Example.vue'));
-
 Vue.component('upgradePage', require('./components/UpgradePage.vue'));
 Vue.component('upgradeInputForm', require('./components/UpgradeInputForm.vue'));
 Vue.component('upgradeResult', require('./components/UpgradeResult.vue'));

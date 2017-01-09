@@ -73,6 +73,7 @@ class ProjectModuleSeeder extends Seeder
             'views' => 'drupal',
             'views_ui' => 'drupal',
             'migrate' => 'drupal',
+            'ckeditor' => 'drupal',
             'entity_token' => 'drupal',
             'migrate_example' => 'drupal',
             'migrate_example_baseball' => 'drupal',
@@ -241,6 +242,10 @@ class ProjectModuleSeeder extends Seeder
             'xmlsitemap_node' => 'xmlsitemap',
             'xmlsitemap_taxonomy' => 'xmlsitemap',
             'xmlsitemap_user' => 'xmlsitemap',
+            'apachesolr_access' => 'apachesolr',
+            'apachesolr_search' => 'apachesolr',
+            'search_api_facet' => 'search_api',
+            'search_api_views' => 'search_api',
         ]);
     }
 }
